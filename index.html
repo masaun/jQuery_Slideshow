@@ -4,12 +4,33 @@
 <head>
   <meta charset="utf-8">
   <title>jQueryスライドショーアプリ</title>
+
+  <!-- サムネイルのサイズ設定。最下部にメソッドチェーンで記載したaddClassメソッドで紐付けされる-->
+  <style>
+    .thumbnail {
+      width: 125px;
+      height: 83px;
+    }
+  </style>
 </head>
 <body>
-  
+  <div id="thumbnails"></div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script>
-    
+    $(function() {
+      var files = [
+        'fish1.jpg',
+        'fish2.png',
+        'fish3.png',
+        'fish4.jpg'
+      ];
+      var img;
+      for (var i = 0; i < files.length; i++) {
+        img = $('<img>').attr('src', files[i]).addClass('thumbnail');
+        $('#thumbnails').append(img);
+      }
+    });
   </script>
 </body>
 
