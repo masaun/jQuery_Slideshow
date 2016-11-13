@@ -24,8 +24,12 @@
 </head>
 <body>
   <div id="thumbnails"></div>
-  <!-- 追加する領域(main)を記載 -->
   <div id="main"></div>
+  <!-- 追加する領域(nav)を記載。前後ボタンを追加 -->
+  <div id="nav">
+    <button id="prev">&laquo; 前へ</button>
+    <button id="next">次へ &raquo;</button>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script>
@@ -37,17 +41,26 @@
         'fish4.jpg'
       ];
       var img;
+      // 今何個目の画像か認識するための記載「currentNum」
+      var currentNum = 0;
       for (var i = 0; i < files.length; i++) {
         img = $('<img>').attr('src', files[i]).addClass('thumbnail');
         $('#thumbnails').append(img);
       }
 
-      // 追加したい領域mainの挙動を設定
       $('#main').append(
         $('<img>').attr('src', files[0])
       );
       $('.thumbnail').click(function() {
         $('#main img').attr('src', $(this).attr('src'));
+      });
+      // 追加したい領域prevの挙動を設定
+      $('#prev').click(function() {
+        currentNum--;
+        if (currentNum < 0) {
+          currentNum = files.length -1;
+        }
+        $('#main img').attr('src', files[currentNum]);
       });
     });
   </script>
