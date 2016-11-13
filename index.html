@@ -7,14 +7,25 @@
 
   <!-- サムネイルのサイズ設定。最下部にメソッドチェーンで記載したaddClassメソッドで紐付けされる-->
   <style>
+    body {
+      margin: 10px auto;
+      text-align: center;
+    }
     .thumbnail {
       width: 125px;
       height: 83px;
     }
+    /* 隣接するサムネイルに対して適用するスタイルを設定 */
+    .thumnail + .thumnail {
+      margin-left: 4px;
+    }
+
   </style>
 </head>
 <body>
   <div id="thumbnails"></div>
+  <!-- 追加する領域(main)を記載 -->
+  <div id="main"></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script>
@@ -30,6 +41,14 @@
         img = $('<img>').attr('src', files[i]).addClass('thumbnail');
         $('#thumbnails').append(img);
       }
+
+      // 追加したい領域mainの挙動を設定
+      $('#main').append(
+        $('<img>').attr('src', files[0])
+      );
+      $('.thumbnail').click(function() {
+        $('#main img').attr('src', $(this).attr('src'));
+      });
     });
   </script>
 </body>
