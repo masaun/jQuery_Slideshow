@@ -14,6 +14,13 @@
     .thumbnail {
       width: 125px;
       height: 83px;
+      /* 追加 */
+      opacity: 0.5;
+      cursor: pointer;
+    }
+    /* 追加 */
+    .current {
+      opacity: 1.0;
     }
     /* 隣接するサムネイルに対して適用するスタイルを設定 */
     .thumnail + .thumnail {
@@ -41,7 +48,7 @@
         'fish4.jpg'
       ];
       var img;
-      // 今何個目の画像か認識するための記載「currentNum」
+
       var currentNum = 0;
       for (var i = 0; i < files.length; i++) {
         img = $('<img>').attr('src', files[i]).addClass('thumbnail');
@@ -51,17 +58,21 @@
       $('#main').append(
         $('<img>').attr('src', files[0])
       );
+      $('.thumbnail:first').addClass('current');
       $('.thumbnail').click(function() {
         $('#main img').attr('src', $(this).attr('src'));
         currentNum = $(this).index();
+        // siblingsを使うことで、クリックした画像以外は半透明にする＝classを外す
+        $(this).addClass('current').siblings().removeClass('current');
       });
-      
       $('#prev').click(function() {
         currentNum--;
         if (currentNum < 0) {
           currentNum = files.length -1;
         }
         $('#main img').attr('src', files[currentNum]);
+        $('.thumbnail').removeClass('current')
+        $('.thumbnail').eq(currentNum).addClass('current');
       });
       // 追加したい領域nextの挙動を設定
       $('#next').click(function() {
@@ -70,6 +81,8 @@
           currentNum = 0;
         }
         $('#main img').attr('src', files[currentNum]);
+        $('.thumbnail').removeClass('current')
+        $('.thumbnail').eq(currentNum).addClass('current');
       });
     });
   </script>
