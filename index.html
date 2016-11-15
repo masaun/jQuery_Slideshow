@@ -53,6 +53,8 @@
       // タイマー用の変数を設定
       var timer;
       var currentNum = 0;
+      // 初期状態の時、nowPlayingを起動させない設定にしておく。
+      var nowPlaying = false;
       for (var i = 0; i < files.length; i++) {
         img = $('<img>').attr('src', files[i]).addClass('thumbnail');
         $('#thumbnails').append(img);
@@ -95,10 +97,12 @@
         }, 1000);　　　　　// 左記に再生スピードを記載
       }
       $('#play').click(function() {
+        if (nowPlaying) return;
         autoPlay();
       });
       $('#stop').click(function() {
         clearTimeout(timer);
+        nowPlaying = false;
       });
     });
   </script>
